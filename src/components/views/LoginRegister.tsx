@@ -3,6 +3,8 @@ import { useFormik } from "formik";
 
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import SmartphoneView from "../SmartphoneView";
+import FormLogin from "../FormLogin";
 
 const LoginRegister: React.FC = () => {
     const toast = useToast();
@@ -40,66 +42,9 @@ const LoginRegister: React.FC = () => {
                 alignItems="center"
                 gap="1rem"
             >
-                <Flex w="20rem" h="30rem" bg="">
-                    <Image
-                        src="/assets/mobile.png"
-                        fit="contain"
-                        position="relative"
-                        zIndex="10"
-                    />
-                    <Image
-                        p="1rem"
-                        src="/assets/screenshot1.png"
-                        fit="contain"
-                        position="relative"
-                        left="-73%"
-                    />
-                </Flex>
+                {/* <SmartphoneView /> */}
                 <Flex w="20rem" h="30rem" flexDir="column" gap="1rem">
-                    <Flex
-                        rounded="10px"
-                        border="1px solid #dedede"
-                        flexDir="column"
-                        p="2rem"
-                    >
-                        <Text fontSize="4xl" textAlign="center" py="2rem">
-                            Instagram
-                        </Text>
-                        <form onSubmit={formik.handleSubmit}>
-                            <Flex flexDirection="column" gap="1rem">
-                                <Input
-                                    placeholder="Telefono, usuario o correo electrónico"
-                                    _placeholder={{ fontSize: "xs" }}
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.email}
-                                    fontSize="sm"
-                                ></Input>
-                                <Input
-                                    placeholder="Contraseña"
-                                    _placeholder={{ fontSize: "xs" }}
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.password}
-                                    fontSize="sm"
-                                ></Input>
-                                <Button
-                                    bg="blue.400"
-                                    color="#fff"
-                                    type="submit"
-                                >
-                                    Ingresar
-                                </Button>
-                            </Flex>
-                        </form>
-                        <Text textAlign="center" fontSize="sm" mt="1rem">
-                            ¿Has olvidado la contraseña?
-                        </Text>
-                    </Flex>
+                    <FormLogin />
                     <Flex
                         w="100%"
                         h="100%"

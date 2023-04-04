@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials: any, req: any) {
                 const { email, password } = credentials as any
-                const data: any = await axios.post('http://localhost:3001/users/auth', { email, password }).then((res) => res.data).catch((err) => console.log(err))
+                const data: any = await axios.post('http://localhost:3001/users/auth', { email, password }).then((res: any) => res.data).catch((err: any) => console.log(err))
 
                 if (data?.status === true) {
                     return data.user
@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async session({ session, token, user }: any) {
-            const newSession = {
+            const newSession: any = {
                 email: session.user.email
             }
             return newSession
