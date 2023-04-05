@@ -42,7 +42,7 @@ const LoginRegister: React.FC = () => {
                 alignItems="center"
                 gap="1rem"
             >
-                {/* <SmartphoneView /> */}
+                <SmartphoneView />
                 <Flex w="20rem" h="30rem" flexDir="column" gap="1rem">
                     <FormLogin />
                     <Flex
