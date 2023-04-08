@@ -20,22 +20,31 @@ export const authOptions: NextAuthOptions = {
             async authorize(credentials: any, req: any) {
                 const { email, password } = credentials as any
                 const data: any = await axios.post(`${process.env.BASE_SERVER_URL}/users/auth`, { email, password }).then((res: any) => res.data).catch((err: any) => console.log(err))
-
                 if (data?.status === true) {
-                    return data.user
+                    return {
+                        email: data.user.email,
+                        id: data.user.id,
+                    }
                 }
-
                 return null
             }
         }),
 
     ],
     callbacks: {
+
         async session({ session, token, user }: any) {
-            const newSession: any = {
-                email: session.user.email
+            const data: any = await axios.get(`${process.env.BASE_SERVER_URL}/users/${token.sub}`).then((res: any) => res.data).catch((err: any) => console.log(err))
+            user = {
+                id: data._id,
+                username: data.username,
+                email: data.email,
+                avatar: data.avatar,
+                firstName: data.firstName,
+                lastName: data.lastName,
             }
-            return newSession
+
+            return user
 
         },
 
