@@ -26,7 +26,7 @@ const MainContainer: React.FC<Props> = ({ session }) => {
                     justifyContent="space-between"
                 >
                     <LeftBar />
-                    <FeedContainer />
+                    <FeedContainer session={session} />
                     <RightBar session={session} />
                 </Flex>
             </Flex>

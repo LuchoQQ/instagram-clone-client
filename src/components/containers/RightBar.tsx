@@ -2,10 +2,10 @@ import { Button, Flex, Icon, Image, Text } from "@chakra-ui/react";
 import { signOut } from "next-auth/react";
 import React from "react";
 import { BiExit } from "react-icons/bi";
-import { Sesssion } from "types";
+import { Session } from "types";
 
 type Props = {
-    session: Sesssion;
+    session: Session;
 };
 
 const RightBar: React.FC<Props> = ({ session }) => {
