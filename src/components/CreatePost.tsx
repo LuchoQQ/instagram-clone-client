@@ -103,7 +103,7 @@ const CreatePost: React.FC<Props> = ({ session, posts, setPosts, setLoading, loa
                             alt='image'
                             src="https://res.cloudinary.com/diylksocz/image/upload/v1681494363/149071_lwjc4s.png"
                         />
-                        <Text ml="1rem">luciano.snchz</Text>
+                        <Text ml="1rem">{session.username}</Text>
                     </Flex>
 
                     <Flex flexDir="column" w="100%">

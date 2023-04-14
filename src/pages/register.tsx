@@ -10,8 +10,10 @@ import {
 import { useFormik } from "formik";
 import { createUser } from "@/utils/API";
 import SmartphoneView from "@/components/SmartphoneView";
+import { Router, useRouter } from "next/router";
 const Register: React.FC = () => {
     const toast = useToast();
+    const router = useRouter()
     const formik = useFormik({
         initialValues: {
             username: "",
@@ -29,6 +31,7 @@ const Register: React.FC = () => {
                         duration: 3000,
                         isClosable: false,
                     });
+                    router.push('/')
                 })
                 .catch((res) => {
                     toast({
