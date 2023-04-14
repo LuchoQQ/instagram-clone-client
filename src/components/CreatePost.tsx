@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Session } from "types";
 import axios from "axios";
+import { createPost } from "@/utils/API";
 
 interface FileEvent extends React.ChangeEvent<HTMLInputElement> {
     target: HTMLInputElement & EventTarget;
@@ -27,13 +28,15 @@ interface Post {
 
 type Props = {
     session: Session;
-    loading: boolean;
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    posts: Post[];
+    setPosts: any
+    setLoading: (loading: boolean) => void
+    loading: boolean
 };
 
-const CreatePost: React.FC<Props> = ({ session, loading, setLoading }) => {
+const CreatePost: React.FC<Props> = ({ session, posts, setPosts, setLoading, loading }) => {
     const [preview, setPreview] = useState("");
-    const [post, setPost] = useState<Post>({
+    const [post, setPost] = useState<any>({
         post_owner: session.id,
         description: "",
         image: null,
@@ -74,14 +77,18 @@ const CreatePost: React.FC<Props> = ({ session, loading, setLoading }) => {
         formData.append("post_owner", post.post_owner);
         formData.append("description", post.description);
 
-        axios.post("http://localhost:3001/posts", formData);
+
+        createPost(formData).then(() => {
+
+            setLoading(!loading)
+        })
         setPost({
             post_owner: "",
             description: "",
             image: null,
         });
-        setLoading(!loading);
-        setPreview("");
+        setPreview("")
+
     };
 
     return (
@@ -93,6 +100,7 @@ const CreatePost: React.FC<Props> = ({ session, loading, setLoading }) => {
                             mt=".5rem"
                             w="32px"
                             h="32px"
+                            alt='image'
                             src="https://res.cloudinary.com/diylksocz/image/upload/ar_1:1,b_rgb:ffffff,bo_3px_solid_rgb:000000,c_fill,g_auto,r_max,w_1000/v1664479701/luchin.jpg"
                         />
                         <Text ml="1rem">luciano.snchz</Text>

@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials: any, req: any) {
                 const { email, password } = credentials as any
-                const data: any = await axios.post(`${process.env.BASE_SERVER_URL}/users/auth`, { email, password }).then((res: any) => res.data).catch((err: any) => console.log(err))
+                const data: any = await axios.post(`${process.env.BASE_SERVER_URL}users/auth`, { email, password }).then((res: any) => res.data).catch((err: any) => console.log(err))
                 if (data?.status === true) {
                     return {
                         email: data.user.email,
@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
 
         async session({ session, token, user }: any) {
-            const data: any = await axios.get(`${process.env.BASE_SERVER_URL}/users/${token.sub}`).then((res: any) => res.data).catch((err: any) => console.log(err))
+            const data: any = await axios.get(`${process.env.BASE_SERVER_URL}users/${token.sub}`).then((res: any) => res.data).catch((err: any) => console.log(err))
             user = {
                 id: data._id,
                 username: data.username,

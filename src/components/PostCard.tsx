@@ -13,10 +13,9 @@ type Props = {
 const PostCard: React.FC<Props> = (props) => {
     const { post } = props;
     const [user, setUser] = useState<User>();
-
     useEffect(() => {
         axios
-            .get(`http://localhost:3001/users/${post.post_owner}`)
+            .get(`${process.env.NEXT_PUBLIC_BASE_SERVER_URL}users/${post.post_owner}`)
             .then((res) => {
                 setUser(res.data);
             });
@@ -63,7 +62,7 @@ const PostCard: React.FC<Props> = (props) => {
                     <Icon as={BsBookmark} fontSize="3xl" ml="auto" />
                 </Flex>
                 <Text fontWeight="600" pb=".5rem" fontSize="sm">
-                    {post.likes.length} Likes
+                    {post?.likes?.length} Likes
                 </Text>
                 <Flex>
                     <Text fontWeight="600" fontSize="sm">
