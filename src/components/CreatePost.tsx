@@ -28,7 +28,7 @@ interface Post {
 
 type Props = {
     session: Session;
-    posts: Post[];
+    posts: any;
     setPosts: any
     setLoading: (loading: boolean) => void
     loading: boolean
