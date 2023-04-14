@@ -10,10 +10,10 @@ import {
 } from "@chakra-ui/react";
 import { BiImageAdd, BiPoll, BiMapPin } from "react-icons/bi";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { SessionContext, getSession } from "next-auth/react";
 import { Session } from "types";
+import axios from "axios";
 
 interface FileEvent extends React.ChangeEvent<HTMLInputElement> {
     target: HTMLInputElement & EventTarget;
@@ -27,9 +27,11 @@ interface Post {
 
 type Props = {
     session: Session;
+    loading: boolean;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const CreatePost: React.FC<Props> = ({ session }) => {
+const CreatePost: React.FC<Props> = ({ session, loading, setLoading }) => {
     const [preview, setPreview] = useState("");
     const [post, setPost] = useState<Post>({
         post_owner: session.id,
@@ -66,8 +68,22 @@ const CreatePost: React.FC<Props> = ({ session }) => {
         });
     };
 
+    const onSubmit = async (post: any) => {
+        const formData = new FormData();
+        formData.append("image", post.image);
+        formData.append("post_owner", post.post_owner);
+        formData.append("description", post.description);
 
-    console.log(post)
+        axios.post("http://localhost:3001/posts", formData);
+        setPost({
+            post_owner: "",
+            description: "",
+            image: null,
+        });
+        setLoading(!loading);
+        setPreview("");
+    };
+
     return (
         <>
             <Flex py="1rem" w="433px">
@@ -137,25 +153,16 @@ const CreatePost: React.FC<Props> = ({ session }) => {
                                 justifyContent="center"
                                 alignItems="center"
                                 py=".5rem"
-                                px="    1.5rem"
+                                px="1.5rem"
                                 rounded="50px"
                                 bg="#0a7ac5"
+                                cursor="pointer"
+                                onClick={() => onSubmit(post)}
                             >
                                 <Text color="#fff">Enviar</Text>
                             </Flex>
                         </Flex>
                     </Flex>
-
-                    {/* <Flex justifyContent="center" alignItems="center">
-                        <Text position="absolute">ASwdjalkwadjlkawd</Text>
-                        <Input
-                            type="file"
-                            w="20rem"
-                            h="10rem"
-                            bg="red"
-                            opacity="0"
-                        />
-                    </Flex> */}
                 </Flex>
             </Flex>
             <Divider />

@@ -1,10 +1,26 @@
 import { Divider, Flex, Icon, Image, Text } from "@chakra-ui/react";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { BsSend, BsBookmark } from "react-icons/bs";
 import { FaRegCommentAlt } from "react-icons/fa";
 import { GrLike } from "react-icons/gr";
+import { Post, User } from "types";
 
-const PostCard: React.FC = () => {
+type Props = {
+    post: Post;
+};
+
+const PostCard: React.FC<Props> = (props) => {
+    const { post } = props;
+    const [user, setUser] = useState<User>();
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:3001/users/${post.post_owner}`)
+            .then((res) => {
+                setUser(res.data);
+            });
+    }, []);
     return (
         <>
             <Flex flexDir="column">
@@ -17,18 +33,27 @@ const PostCard: React.FC = () => {
                 >
                     <Image
                         w="32px"
-                        src="https://res.cloudinary.com/diylksocz/image/upload/ar_1:1,b_rgb:ffffff,bo_3px_solid_rgb:000000,c_fill,g_auto,r_max,w_1000/v1664479701/luchin.jpg"
+                        src={
+                            user?.avatar === null
+                                ? "https://res.cloudinary.com/diylksocz/image/upload/v1681427636/149071_oev2gy.png"
+                                : user?.avatar
+                        }
                     />
-                    <Text ml="1rem">luciano.snchz</Text>
-                    <Text ml="1rem" color="#8b8b8b" fontSize='sm' fontWeight='400'>
+                    <Text ml="1rem">{user?.username}</Text>
+                    <Text
+                        ml="1rem"
+                        color="#8b8b8b"
+                        fontSize="sm"
+                        fontWeight="400"
+                    >
                         • 2 h
                     </Text>
                 </Flex>
                 <Image
                     w="100%"
-                    h='585px'
-                    fit='cover'
-                    src="https://res.cloudinary.com/diylksocz/image/upload/v1663179911/279140078_1780149818982718_5146374659619253410_n_fxdjiq.jpg"
+                    h="585px"
+                    fit="cover"
+                    src={post.image}
                     rounded="5px"
                 />
                 <Flex gap="1rem" py="1rem">
@@ -37,13 +62,20 @@ const PostCard: React.FC = () => {
                     <Icon as={BsSend} fontSize="3xl" />
                     <Icon as={BsBookmark} fontSize="3xl" ml="auto" />
                 </Flex>
-                <Text fontWeight='600' pb='.5rem' fontSize='sm'>525 Me gusta</Text>
+                <Text fontWeight="600" pb=".5rem" fontSize="sm">
+                    {post.likes.length} Likes
+                </Text>
                 <Flex>
-                    <Text fontWeight="600" fontSize='sm'>
+                    <Text fontWeight="600" fontSize="sm">
                         luciano.snchz
-                        <span style={{ fontWeight: "500", marginLeft: '.5rem', fontSize: 'sm' }}>
-                            Laborum eiusmod duis aliqua et ea sint incididunt
-                            Lorem aliqua et nulla nisi.
+                        <span
+                            style={{
+                                fontWeight: "500",
+                                marginLeft: ".5rem",
+                                fontSize: "sm",
+                            }}
+                        >
+                            {post.description}
                         </span>
                     </Text>
                 </Flex>
