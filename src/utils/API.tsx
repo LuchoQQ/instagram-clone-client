@@ -7,7 +7,7 @@ const instance = axios.create({
 });
 
 const client = axios.create({
-    baseURL: process.env.BASE_SERVER_URL,
+    baseURL: 'https://instagram-clone-server-lake.vercel.app/',
     timeout: 5000,
     headers: { "X-Custom-Header": "foobar" },
 });
