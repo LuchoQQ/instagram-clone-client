@@ -101,7 +101,7 @@ const CreatePost: React.FC<Props> = ({ session, posts, setPosts, setLoading, loa
                             w="32px"
                             h="32px"
                             alt='image'
-                            src="https://res.cloudinary.com/diylksocz/image/upload/ar_1:1,b_rgb:ffffff,bo_3px_solid_rgb:000000,c_fill,g_auto,r_max,w_1000/v1664479701/luchin.jpg"
+                            src="https://res.cloudinary.com/diylksocz/image/upload/v1681494363/149071_lwjc4s.png"
                         />
                         <Text ml="1rem">luciano.snchz</Text>
                     </Flex>
@@ -117,7 +117,7 @@ const CreatePost: React.FC<Props> = ({ session, posts, setPosts, setLoading, loa
                             fill="#fff"
                             display={preview !== "" ? "block" : "none"}
                         />
-                        <Image src={preview} />
+                        <Image alt='image' src={preview} display={preview === '' ? 'none' : 'block'}/>
                         <Input
                             mt="1rem"
                             variant="flushed"

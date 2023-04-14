@@ -7,7 +7,7 @@ const instance = axios.create({
 });
 
 const client = axios.create({
-    baseURL: 'http://localhost:3000/',
+    baseURL: process.env.BASE_SERVER_URL,
     timeout: 5000,
     headers: { "X-Custom-Header": "foobar" },
 });

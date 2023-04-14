@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { createUser } from "@/utils/API";
+import SmartphoneView from "@/components/SmartphoneView";
 const Register: React.FC = () => {
     const toast = useToast();
     const formik = useFormik({
@@ -49,7 +50,7 @@ const Register: React.FC = () => {
                 alignItems="center"
                 gap="1rem"
             >
-                <Flex w="20rem" h="30rem" bg="red"></Flex>
+                <SmartphoneView />
                 <Flex w="20rem" h="30rem" flexDir="column" gap="1rem">
                     <Flex
                         rounded="10px"
